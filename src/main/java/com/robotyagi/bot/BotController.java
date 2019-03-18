@@ -47,7 +47,6 @@ public class BotController extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        RestClient client = new RestClient();
         if (update.hasMessage()) {
             Message message = update.getMessage();
             SendMessage response = new SendMessage();
@@ -58,7 +57,7 @@ public class BotController extends TelegramLongPollingBot {
             SendPhoto sendPhotoRequest = new SendPhoto();
             sendPhotoRequest.setChatId(chatId);
             try {
-                JSONObject responseJSON = new JSONObject(client.sendMessage(getPhotoFromMessage(getBotToken(), message.getPhoto().get(message.getPhoto().size() - 1).getFileId()),text));
+                JSONObject responseJSON = new JSONObject(RestClient.sendMessage(getPhotoFromMessage(getBotToken(), message.getPhoto().get(message.getPhoto().size() - 1).getFileId()),message.getCaption()));
                 JSONArray jsonArray = new JSONArray(responseJSON);
                 sendPhotoRequest.setPhoto(jsonArray.get(0).toString());
             } catch (MalformedURLException e) {

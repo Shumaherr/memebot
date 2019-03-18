@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 public class RestClient {
 
     @Value("${backend.url}")
-    private String backendUrl;
+    private static String backendUrl;
     @Value("${backend.port}")
-    private String backendPort;
+    private static String backendPort;
     @Value("${backend.path}")
-    private String backendPath;
+    private static String backendPath;
 
-    public JSONObject sendMessage(String photoUrl, String text) {
+    public static JSONObject sendMessage(String photoUrl, String text) {
         String newPicUrl =new String();
         JSONObject body = new JSONObject();
         body.put("url", photoUrl);
