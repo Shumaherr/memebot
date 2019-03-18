@@ -58,7 +58,7 @@ public class BotController extends TelegramLongPollingBot {
             sendPhotoRequest.setChatId(chatId);
             try {
                 JSONObject responseJSON = new JSONObject(RestClient.sendMessage(getPhotoFromMessage(getBotToken(), message.getPhoto().get(message.getPhoto().size() - 1).getFileId()),message.getCaption()));
-                JSONArray jsonArray = new JSONArray(responseJSON);
+                JSONArray jsonArray = responseJSON.getJSONArray("results");
                 sendPhotoRequest.setPhoto(jsonArray.get(0).toString());
             } catch (MalformedURLException e) {
                 e.printStackTrace();

@@ -2,6 +2,7 @@ package com.robotyagi.bot;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -21,16 +22,21 @@ public class RestClient {
         body.put("text", text);
         String output = new String();
         String url = backendUrl + ":" + backendPort + backendPath;
-
+        JSONObject responseBody = new JSONObject();
         try {
             HttpResponse<String> response = Unirest.post(url)
                     .body(body.toString())
                     .asString();
             output = response.getBody();
+            JSONArray responseVector = new JSONArray(output);
+            responseBody.put("results", responseVector);
         }
-        catch(Exception e){System.out.println(e); }
+        catch(Exception e){
+            System.out.println(e);
+            responseBody.put("Error", "Error zero results");
+        }
 
-        return (new JSONObject(output));
+        return responseBody;
 
     }
 }
