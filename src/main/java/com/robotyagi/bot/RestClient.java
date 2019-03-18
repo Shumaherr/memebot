@@ -5,10 +5,6 @@ import com.mashape.unirest.http.Unirest;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Vector;
-
 public class RestClient {
 
     @Value("${backend.url}")

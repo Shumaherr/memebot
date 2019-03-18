@@ -1,5 +1,6 @@
 package com.robotyagi.bot;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,9 @@ public class BotController extends TelegramLongPollingBot {
             SendPhoto sendPhotoRequest = new SendPhoto();
             sendPhotoRequest.setChatId(chatId);
             try {
-                sendPhotoRequest.setPhoto(getPhotoFromMessage(getBotToken(), message.getPhoto().get(message.getPhoto().size() - 1).getFileId()));
+                JSONObject responseJSON = new JSONObject(client.sendMessage(getPhotoFromMessage(getBotToken(), message.getPhoto().get(message.getPhoto().size() - 1).getFileId()),text));
+                JSONArray jsonArray = new JSONArray(responseJSON);
+                sendPhotoRequest.setPhoto(jsonArray.get(0).toString());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
