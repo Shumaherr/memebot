@@ -21,7 +21,8 @@ public class RestClient {
         body.put("url", photoUrl);
         body.put("text", text);
         String output = new String();
-        String url = backendUrl + ":" + backendPort + backendPath;
+        //String url = backendUrl + ":" + backendPort + backendPath;
+        String url = "http://18.219.76.113:9090/upload";
         try {
             HttpResponse<String> response = Unirest.post(url)
                     .body(body.toString())
